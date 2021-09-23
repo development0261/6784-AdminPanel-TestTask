@@ -505,7 +505,6 @@ export default {
   bottom: -5px;
   font-size: 17px !important;
 }
-
 .tabs-section button {
   position: relative;
   top: 5px;
