@@ -210,7 +210,7 @@
                         "
                         id="username"
                         type="text"
-                        placeholder="Username"
+                        placeholder="Journal title abbrv."
                       />
                     </div>
                     <div class="flex items-center my-5 pl-3">
@@ -232,7 +232,7 @@
                         "
                         id="username"
                         type="text"
-                        placeholder="Username"
+                        placeholder="PPUB ISSN"
                       />
                     </div>
                     <div class="flex items-center my-5 pl-3">
@@ -254,7 +254,7 @@
                         "
                         id="username"
                         type="text"
-                        placeholder="Username"
+                        placeholder="EPUB IISN"
                       />
                     </div>
                     <div class="flex items-center my-5 pl-3">
@@ -276,7 +276,7 @@
                         "
                         id="username"
                         type="text"
-                        placeholder="Username"
+                        placeholder="DOI Prefix"
                       />
                     </div>
                   </div>
@@ -460,10 +460,7 @@
           </div>
         </div>
       </div>
-      <div v-if="tab === 2">
-        Tab 2 Content show Lorem ipsum dolor sit amet consectetur, adipisicing
-        elit. aliquam rem. Exercitationem corporis eius voluptatibus.
-      </div>
+      <div v-if="tab === 2">Article Details</div>
     </div>
   </div>
 </template>
