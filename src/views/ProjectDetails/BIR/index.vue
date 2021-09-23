@@ -469,7 +469,6 @@
 </template>
 
 <script>
-// import HelloWorld from "@/components/HelloWorld.vue";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faCopy,
