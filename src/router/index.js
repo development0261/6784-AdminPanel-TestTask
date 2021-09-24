@@ -1,11 +1,14 @@
-import { createRouter, createWebHistory } from "vue-router";
-import ProjectDetils from "../views/ProjectDetails/BIR/index";
+import Vue from "vue";
+import VueRouter from "vue-router";
+import ProductDetails from "../views/Home.vue";
+// import ProductDetails from "../views/ProductDetails/index.vue";
+Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "Project Details",
-    component: ProjectDetils,
+    name: "Product Details",
+    component: ProductDetails,
   },
   {
     path: "/about",
@@ -18,8 +21,9 @@ const routes = [
   },
 ];
 
-const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+const router = new VueRouter({
+  mode: "history",
+  base: process.env.BASE_URL,
   routes,
 });
 
