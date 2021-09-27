@@ -26,24 +26,24 @@
 				<ul class="flex tabs-section">
 					<li>
 						<button @click="currentTab(1)" class="bg-gray-300 rounded-t-md text-gray-500 py-2 px-3 border border-gray-300 border-b-none" :class="(tab === 1)? 'active-tab':''">
-							Project info
+							{{ $t("productDetails.projectInfo") }}
 						</button>
 					</li>
 					<li class="ml-2">
 						<button @click="currentTab(2)" class="bg-gray-300 rounded-t-md text-gray-500 py-2 px-3 border border-gray-300" :class="(tab == 2)? 'active-tab':''">
-							Article details
+							{{ $t("productDetails.articleDetails") }}
 						</button>
 					</li>
 				</ul>
 				<ul class="flex form-edit-option flex-wrap">
 					<li class="mr-4">
-						<a href="#" class="bg-white border rounded-md border-purple-500 text-sm text-purple-500 py-2 px-3"><font-awesome-icon class="" icon="copy" /> Copy to new project</a>
+						<a href="#" class="bg-white border rounded-md border-purple-500 text-sm text-purple-500 py-2 px-3"><font-awesome-icon class="" icon="copy" /> {{ $t("button.copyProject") }}</a>
 					</li>
 					<li class="mr-4">
-						<a href="#" class="bg-white border rounded-md border-purple-500 text-sm text-purple-500 py-2 px-3"><font-awesome-icon icon="trash" /> Delete project</a>
+						<a href="#" class="bg-white border rounded-md border-purple-500 text-sm text-purple-500 py-2 px-3"><font-awesome-icon icon="trash" /> {{ $t("button.deleteProject") }}</a>
 					</li>
 					<li v-if="isEdit == false">
-						<button type="button" @click="editForm" class="text-white border rounded-md border-purple-500 text-sm bg-purple-500 py-2 px-3"><font-awesome-icon icon="pen" />Edit project</button>
+						<button type="button" @click="editForm" class="text-white border rounded-md border-purple-500 text-sm bg-purple-500 py-2 px-3"><font-awesome-icon icon="pen" />{{ $t("button.editProject") }}</button>
 					</li>
 				</ul>
 			</div>
@@ -56,59 +56,61 @@
 								<div class="col-span-6 pr-10">
 									<div class="main">
 										<div class="title">
-											<h4 class="font-semibold border-b-2 border-purple-500 inline-block">Journal Info</h4>
+											<h4 class="font-semibold border-b-2 border-purple-500 inline-block">{{ $t("productDetails.journalInfoTitle") }}</h4>
 										</div>
 										<div class="journal-form">
 											<div class="flex my-5 pl-3" :class="{ 'form-group--error': $v.hwp.$error }">
-												<label class="mt-2 w-1/3 pr-2 font-semibold text-sm">HWP</label>
+												<label class="mt-2 w-1/3 pr-2 font-semibold text-sm">{{ $t("productDetails.journalInfo.hwp") }}</label>
 												<div class="w-2/3">
-													<input class="appearance-none border rounded text-sm w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="hwp" type="text" placeholder="HWP" name="hwp" v-model.trim="$v.hwp.$model" />
-													<div class="error text-sm text-red-500" v-if="!$v.hwp.required">This field is required.</div>
-													<div class="error text-sm text-red-500" v-if="!$v.hwp.spacesPunctuations">Please enter correct value.</div>
+													<input class="appearance-none border rounded text-sm w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="hwp" type="text" :placeholder="$t('productDetails.journalInfo.hwp')" name="hwp" v-model.trim="$v.hwp.$model" :disabled="isDisabled" />
+													<div class="error text-sm text-red-500" v-if="!$v.hwp.required">{{ $t("error.required") }}</div>
+													<div class="error text-sm text-red-500" v-if="!$v.hwp.spacesPunctuations">{{ $t("error.valueNotCorrect") }}.</div>
 												</div>
 											</div>
 											<div class="flex my-5 pl-3" :class="{ 'form-group--error': $v.publisher_id.$error }">
-												<label class="mt-2 w-1/3 pr-2 font-semibold text-sm">Publisher ID</label>
+												<label class="mt-2 w-1/3 pr-2 font-semibold text-sm">{{ $t("productDetails.journalInfo.publisherId") }}</label>
 												<div class="w-2/3">
-													<input class="appearance-none border rounded text-sm w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="publisher_id" type="text" placeholder="Publisher ID" v-model.trim="$v.publisher_id.$model" />
-													<div class="error text-sm text-red-500	" v-if="!$v.publisher_id.required">This field is required.</div>
+													<input class="appearance-none border rounded text-sm w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="publisher_id" type="text" :placeholder="$t('productDetails.journalInfo.publisherId')" v-model.trim="$v.publisher_id.$model" :disabled="isDisabled" />
+													<div class="error text-sm text-red-500	" v-if="!$v.publisher_id.required">{{ $t("error.required") }}</div>
+													<div class="error text-sm text-red-500" v-if="!$v.publisher_id.spacesPunctuations">{{ $t("error.valueNotCorrect") }}.</div>
 												</div>
 											</div>
 											<div class="flex my-5 pl-3" :class="{ 'form-group--error': $v.journal_title.$error }">
-												<label class="mt-2 w-1/3 pr-2 font-semibold text-sm">Journal title</label>
+												<label class="mt-2 w-1/3 pr-2 font-semibold text-sm">{{ $t("productDetails.journalInfo.journalTitle") }}</label>
 												<div class="w-2/3">
-												<input class="appearance-none text-sm border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="journal_title" type="text" name="journal_title" placeholder="Journal title" v-model.trim="$v.journal_title.$model" />
-												<div class="error text-sm text-red-500" v-if="!$v.journal_title.required">This field is required.</div>
+												<input class="appearance-none text-sm border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="journal_title" type="text" name="journal_title" :placeholder="$t('productDetails.journalInfo.journalTitle')" v-model.trim="$v.journal_title.$model" :disabled="isDisabled" />
+												<div class="error text-sm text-red-500" v-if="!$v.journal_title.required">{{ $t("error.required") }}</div>
+												<div class="error text-sm text-red-500" v-if="!$v.journal_title.spacesPunctuations">{{ $t("error.valueNotCorrect") }}.</div>
 												</div>
 											</div>
 											<div class="flex my-5 pl-3" :class="{ 'form-group--error': $v.journal_title_abbrv.$error }">
-												<label class="mt-2 w-1/3 pr-2 font-semibold text-sm">Journal title abbrv.</label>
+												<label class="mt-2 w-1/3 pr-2 font-semibold text-sm">{{ $t("productDetails.journalInfo.journalTitleAbbrv") }}</label>
 												<div class="w-2/3">
-													<input class="appearance-none text-sm border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="journal_title_abbrv" type="text" name="journal_title_abbrv" placeholder="Journal title abbrv." v-model.trim="$v.journal_title_abbrv.$model" />
-													<div class="error text-sm text-red-500	" v-if="!$v.journal_title_abbrv.required">This field. is required.</div>
+													<input class="appearance-none text-sm border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="journal_title_abbrv" type="text" name="journal_title_abbrv" :placeholder="$t('productDetails.journalInfo.journalTitleAbbrv')" v-model.trim="$v.journal_title_abbrv.$model" :disabled="isDisabled" />
+													<div class="error text-sm text-red-500	" v-if="!$v.journal_title_abbrv.required">{{ $t("error.required") }}</div>
+													<div class="error text-sm text-red-500" v-if="!$v.journal_title_abbrv.spacesPunctuations">{{ $t("error.valueNotCorrect") }}.</div>
 												</div>
 											</div>
 											<div class="flex my-5 pl-3" :class="{ 'form-group--error': $v.ppub_issn.$error }">
-												<label class="mt-2 w-1/3 pr-2 font-semibold text-sm">PPUB ISSN</label>
+												<label class="mt-2 w-1/3 pr-2 font-semibold text-sm">{{ $t("productDetails.journalInfo.ppuBIssn") }}</label>
 												<div class="w-2/3">
-													<input class="appearance-none text-sm border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="ppub_issn" type="text" name="ppub_issn" placeholder="PPUB ISSN" v-model.trim="$v.ppub_issn.$model" />
-													<div class="error text-sm text-red-500	" v-if="!$v.ppub_issn.required">This field is required.</div>
-													<div class="error text-sm text-red-500	" v-if="!$v.ppub_issn.number">PPUB ISSN number is wrong.</div>
+													<input class="appearance-none text-sm border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="ppub_issn" type="text" name="ppub_issn" :placeholder="$t('productDetails.journalInfo.ppuBIssn')" v-model.trim="$v.ppub_issn.$model" :disabled="isDisabled" />
+													<div class="error text-sm text-red-500	" v-if="!$v.ppub_issn.required">{{ $t("error.required") }}</div>
+													<div class="error text-sm text-red-500	" v-if="!$v.ppub_issn.number">{{ $t("error.ppubIssn") }}</div>
 												</div>
 											</div>
 											<div class="flex my-5 pl-3" :class="{ 'form-group--error': $v.epub_iisn.$error }">
-												<label class="mt-2 w-1/3 pr-2 font-semibold text-sm">EPUB IISN</label>
+												<label class="mt-2 w-1/3 pr-2 font-semibold text-sm">{{ $t("productDetails.journalInfo.epubIisn") }}</label>
 												<div class="w-2/3">
-												<input class="appearance-none text-sm border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="epub_iisn" type="text" name="epub_iisn" placeholder="EPUB IISN" v-model.trim="$v.epub_iisn.$model" />
-												<div class="error text-sm text-red-500	" v-if="!$v.epub_iisn.required">This field is required.</div>
-												<div class="error text-sm text-red-500	" v-if="!$v.epub_iisn.number">EPUB IISN number is wrong.</div>
+												<input class="appearance-none text-sm border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="epub_iisn" type="text" name="epub_iisn" :placeholder="$t('productDetails.journalInfo.epubIisn')" v-model.trim="$v.epub_iisn.$model" :disabled="isDisabled" />
+												<div class="error text-sm text-red-500	" v-if="!$v.epub_iisn.required">{{ $t("error.required") }}</div>
+												<div class="error text-sm text-red-500	" v-if="!$v.epub_iisn.number">{{ $t("error.epubIisn") }}.</div>
 												</div>
 											</div>
 											<div class="flex my-5 pl-3" :class="{ 'form-group--error': $v.doi_prefix.$error }">
-												<label class="mt-2 w-1/3 pr-2 font-semibold text-sm">DOI Prefix</label>
+												<label class="mt-2 w-1/3 pr-2 font-semibold text-sm">{{ $t("productDetails.journalInfo.doiPrefix") }}</label>
 												<div class="w-2/3">
-													<input class="appearance-none text-sm border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="doi_prefix" type="text" name="doi_prefix" placeholder="DOI Prefix" v-model.trim="$v.doi_prefix.$model" />
-													<div class="error text-sm text-red-500	" v-if="!$v.doi_prefix.required">This field is required.</div>
+													<input class="appearance-none text-sm border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="doi_prefix" type="text" name="doi_prefix" :placeholder="$t('productDetails.journalInfo.doiPrefix')" v-model.trim="$v.doi_prefix.$model" :disabled="isDisabled" />
 												</div>
 											</div>
 										</div>
@@ -116,40 +118,42 @@
 								</div>
 								<div class="col-span-6 pr-10">
 									<div class="w-full">
-										<h4 class="font-semibold border-b-2 border-purple-500 inline-block">Publisher details</h4>
+										<h4 class="font-semibold border-b-2 border-purple-500 inline-block">{{ $t("productDetails.publisherDetailsTitle") }}</h4>
 										<div class="journal-form">
 											<div class="flex my-5 pl-3" :class="{ 'form-group--error': $v.publisher_name.$error }">
-												<label class="mt-2 w-1/3 pr-2 font-semibold text-sm">Publisher Name</label>
+												<label class="mt-2 w-1/3 pr-2 font-semibold text-sm">{{ $t("productDetails.publisherDetails.publisherName") }}</label>
 												<div class="w-2/3">
-													<input class="appearance-none border rounded text-sm w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="publisher_name" type="text" name="publisher_name" placeholder="Publisher Name" v-model.trim="$v.publisher_name.$model" />
-													<div class="error text-sm text-red-500	" v-if="!$v.publisher_name.required">This field is required.</div>
+													<input class="appearance-none border rounded text-sm w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="publisher_name" type="text" name="publisher_name" :placeholder="$t('productDetails.publisherDetails.publisherName')" v-model.trim="$v.publisher_name.$model" :disabled="isDisabled" />
+													<div class="error text-sm text-red-500	" v-if="!$v.publisher_name.required">{{ $t("error.required") }}</div>
+													<div class="error text-sm text-red-500" v-if="!$v.publisher_name.spacesPunctuations">{{ $t("error.valueNotCorrect") }}.</div>
 												</div>
 											</div>
 											<div class="flex my-5 pl-3" :class="{ 'form-group--error': $v.publisher_address.$error }">
-												<label class="w-1/3 pr-2 font-semibold text-sm">Publisher address</label>
+												<label class="w-1/3 pr-2 font-semibold text-sm">{{ $t("productDetails.publisherDetails.PublisherAddress") }}</label>
 												<div class="w-2/3">
-													<textarea rows="5" class="appearance-none border rounded text-sm w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="publisher_address" type="text" name="publisher_address" placeholder="Publisher address" v-model.trim="$v.publisher_address.$model" />
-													<div class="error text-sm text-red-500	" v-if="!$v.publisher_address.required">This field is required.</div>
+													<textarea rows="5" class="appearance-none border rounded text-sm w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="publisher_address" type="text" name="publisher_address" :placeholder="$t('productDetails.publisherDetails.PublisherAddress')" v-model.trim="$v.publisher_address.$model" :disabled="isDisabled" />
+													<div class="error text-sm text-red-500	" v-if="!$v.publisher_address.required">{{ $t("error.required") }}</div>
 												</div>
 											</div>
 										</div>
 									</div>
 									<div class="w-full">
-										<h4 class="font-semibold border-b-2 border-purple-500 inline-block">Copyright details</h4>
+										<h4 class="font-semibold border-b-2 border-purple-500 inline-block">{{ $t("productDetails.copyrightDetailsTitle") }}</h4>
 										<div class="journal-form">
 											<div class="flex my-5 pl-3" :class="{ 'form-group--error': $v.copyright_statement.$error }">
-												<label class=" w-1/3 pr-2 font-semibold text-sm">Copyright statement</label>
+												<label class=" w-1/3 pr-2 font-semibold text-sm">{{ $t("productDetails.copyrightDetails.copyrightStatement") }}</label>
 												<div class="w-2/3">
-													<textarea rows="5" class="appearance-none border rounded text-sm w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="copyright_statement" type="text" name="copyright_statement" placeholder="Copyright statement" v-model.trim="$v.copyright_statement.$model" />
-													<div class="error text-sm text-red-500	" v-if="!$v.copyright_statement.required">This field is required.</div>
+													<textarea rows="5" class="appearance-none border rounded text-sm w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="copyright_statement" type="text" name="copyright_statement" :placeholder="$t('productDetails.copyrightDetails.copyrightStatement')" v-model.trim="$v.copyright_statement.$model" :disabled="isDisabled" />
+													<div class="error text-sm text-red-500	" v-if="!$v.copyright_statement.required">{{ $t("error.required") }}</div>
 												</div>
 											</div>
 											<div class="flex my-5 pl-3" @change="checkYear()" :class="{ 'form-group--error': ($v.copyright_year.$error || !isValidYear ) }">
-												<label class="mt-2 w-1/3 pr-2 font-semibold text-sm">Copyright year</label>
+												<label class="mt-2 w-1/3 pr-2 font-semibold text-sm">{{ $t("productDetails.copyrightDetails.copyrightYear") }}</label>
 												<div class="w-2/3">
-													<input class="appearance-none border rounded text-sm w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="copyright_year" type="text" name="copyright_year" placeholder="Copyright year" v-model.trim="$v.copyright_year.$model" />
-													<div class="error text-sm text-red-500	" v-if="!$v.copyright_year.required">This field is required.</div>
-													<div class="error text-sm text-red-500	" v-if="$v.copyright_year.required && !isValidYear">Please enter correct year.</div>
+													<input class="appearance-none border rounded text-sm w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="copyright_year" type="text" name="copyright_year" :placeholder="$t('productDetails.copyrightDetails.copyrightYear')"  v-model.trim="$v.copyright_year.$model" :disabled="isDisabled" />
+													<div class="error text-sm text-red-500	" v-if="!$v.copyright_year.required">{{ $t("error.required") }}</div>
+													<div class="error text-sm text-red-500	" v-if="$v.copyright_year.required && !isValidYear">{{ $t("error.year") }}</div>
+													<div class="error text-sm text-red-500" v-if="$v.copyright_year.required && !$v.copyright_year.spacesPunctuations">{{ $t("error.valueNotCorrect") }}.</div>
 												</div>
 											</div>
 										</div>
@@ -160,10 +164,10 @@
 								<div class="col-span-12 pr-5" v-if="isEdit">
 									<ul class="flex justify-end">
 										<li class="ml-4">
-											<button @click="resetForm" type="button" class="min-w-full text-center w-24 border rounded-md border-purple-500 text-sm text-purple-500 py-2 px-3">Cancel</button>
+											<button @click="resetForm" type="button" class="min-w-full text-center w-24 border rounded-md border-purple-500 text-sm text-purple-500 py-2 px-3">{{ $t("button.cancel") }}</button>
 										</li>
 										<li class="ml-4">
-											<button type="button" @click="submit" class="text-white border min-w-full text-center w-24 rounded-md border-purple-500 text-sm bg-purple-500 py-2 px-3">Save</button>
+											<button type="button" @click="submit" class="text-white border min-w-full text-center w-24 rounded-md border-purple-500 text-sm bg-purple-500 py-2 px-3">{{ $t("button.save") }}</button>
 										</li>
 									</ul>
 								</div>
@@ -212,8 +216,10 @@ export default {
 			copyright_year: '',
 			submitStatus: null,
 			tab: 1,
+			isGetResSuccess: false,
 			isEdit: false,
 			isValidYear: true,
+			isDisabled: true,
 		};
 	},
 	computed: {
@@ -227,34 +233,39 @@ export default {
 		},
 		publisher_id: {
 			required,
+			spacesPunctuations
 		},
 		journal_title: {
 			required,
+			spacesPunctuations,
 		},
-		journal_title_abbrv: {},
+		journal_title_abbrv: {
+			spacesPunctuations
+		},
 		ppub_issn: {
 			required,
-			number
+			number,
 		},
 		epub_iisn: {
 			required,
-			number
+			number,
 		},
-		doi_prefix: {
-			required,
-		},
+		doi_prefix: {},
 		publisher_name: {
 			required,
+			spacesPunctuations
 		},
-		publisher_address: {
-			required,
-		},
+		publisher_address: {},
 		copyright_statement: {
 			required,
 		},
 		copyright_year: {
 			required,
+			spacesPunctuations
 		}
+	},
+	mounted() {
+		this.getValue();
 	},
 	methods: {
 		checkYear: function() {
@@ -264,6 +275,36 @@ export default {
 			} else {
 				this.isValidYear = false;
 			}
+		},
+		getValue: function() {
+			this.$store.dispatch('getProjectDetails').then((response) => {
+				try {
+					if(response.status != undefined && response.status == 200) {
+						let data = response.data;
+						this.hwp = data.project_info[0].journal_info.hwp;
+						this.publisher_id = data.project_info[0].journal_info.publisher_id;
+						this.journal_title = data.project_info[0].journal_info.journal_title;
+						this.journal_title_abbrv = data.project_info[0].journal_info.Journal_title_abbrv;
+						this.ppub_issn = data.project_info[0].journal_info.ppub_issn;
+						this.epub_iisn = data.project_info[0].journal_info.epub_iisn;
+						this.doi_prefix = data.project_info[0].journal_info.doi_prefix;
+
+						this.publisher_name = data.project_info[0].publisher_info.publisher_name;
+						this.publisher_address = data.project_info[0].publisher_info.publisher_address;
+
+						this.copyright_statement = data.project_info[0].copyright_info.copyright_statement;
+						this.copyright_year = data.project_info[0].copyright_info.copyright_year;
+
+						this.isGetResSuccess = true;
+					} else {
+						this.isGetResSuccess = false;
+						alert("Something went wrong.");
+					}
+				} catch (e) {
+					alert(e);
+					this.isGetResSuccess = false;
+				}
+			});
 		},
 		 submit: function() {
 			 try {
@@ -308,48 +349,23 @@ export default {
 			this.tab = tabNumber;
 		},
 		editForm: async function () {
-			this.$store.dispatch('getProjectDetails').then((response) => {
-				try {
-					if(response.status != undefined && response.status == 200) {
-						let data = response.data;
-						this.hwp = data.project_info[0].journal_info.hwp;
-						this.publisher_id = data.project_info[0].journal_info.publisher_id;
-						this.journal_title = data.project_info[0].journal_info.journal_title;
-						this.journal_title_abbrv = data.project_info[0].journal_info.Journal_title_abbrv;
-						this.ppub_issn = data.project_info[0].journal_info.ppub_issn;
-						this.epub_iisn = data.project_info[0].journal_info.epub_iisn;
-						this.doi_prefix = data.project_info[0].journal_info.doi_prefix;
-
-						this.publisher_name = data.project_info[0].publisher_info.publisher_name;
-						this.publisher_address = data.project_info[0].publisher_info.publisher_address;
-
-						this.copyright_statement = data.project_info[0].copyright_info.copyright_statement;
-						this.copyright_year = data.project_info[0].copyright_info.copyright_year;
-
-						this.isEdit = true;
-					} else {
-						alert("Something went wrong.");
-					}
-				} catch (e) {
-					alert(e);
-				}
-			});
+			this.getValue();
+			if(this.isGetResSuccess) {
+				this.isEdit = true;
+				this.isDisabled = false;
+			} else {
+				this.isEdit = false;
+				this.isDisabled = true;
+			}
 		},
 		resetForm: function () {
-			this.hwp = "";
-			this.publisher_id = "";
-			this.journal_title = "";
-			this.journal_title_abbrv = "";
-			this.ppub_issn = "";
-			this.epub_iisn = "";
-			this.doi_prefix = "";
-
-			this.publisher_name = "";
-			this.publisher_address = "";
-
-			this.copyright_statement = "";
-			this.copyright_year = "";
-
+			this.getValue();
+			if(this.isGetResSuccess) {
+				this.isEdit = true;
+				this.isDisabled = true;
+			} else {
+				this.isDisabled = true;
+			}
 			this.$nextTick(() => {
 				this.$v.$reset();
 				this.isEdit = false;

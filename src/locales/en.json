@@ -1,0 +1,42 @@
+{
+  "message": "hello i18n !!",
+  "error": {
+    "required": "This field is required.",
+    "valueNotCorrect": "Please enter correct value.",
+    "ppubIssn":"PPUB ISSN number is wrong.",
+    "epubIisn":"EPUB IISN number is wrong.",
+    "year": "Please enter correct year."
+  },
+  "button": {
+    "cancel": "Cancel",
+    "save": "Save",
+    "editProject": "Edit project",
+    "deleteProject": "Delete project",
+    "copyProject": "Copy to new project"
+  },
+  "productDetails": {
+    "projectInfo": "Project info",
+    "articleDetails": "Article Details",
+    "articleInfo1": "Article info",
+    "journalInfoTitle": "Journal Info",
+    "journalInfo": {
+      "hwp": "HWP",
+      "publisherId": "Publisher ID",
+      "journalTitle": "Journal title",
+      "journalTitleAbbrv": "Journal title abbrv.",
+      "ppuBIssn": "PPUB ISSN",
+      "epubIisn": "EPUB IISN",
+      "doiPrefix": "DOI Prefix"
+    },
+    "publisherDetailsTitle": "Publisher details",
+    "publisherDetails": {
+      "publisherName": "Publisher Name",
+      "PublisherAddress": "Publisher address"
+    },
+    "copyrightDetailsTitle": "Copyright details",
+    "copyrightDetails": {
+      "copyrightStatement": "Copyright statement",
+      "copyrightYear": "Copyright year"
+    }
+  }
+}
