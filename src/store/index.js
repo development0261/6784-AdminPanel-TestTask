@@ -1,11 +1,12 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import axios from 'axios';
+Vue.use(Vuex, axios)
 
-Vue.use(Vuex);
+import ProjectDetails from './modules/ProjectDispatch';
 
 export default new Vuex.Store({
-  state: {},
-  mutations: {},
-  actions: {},
-  modules: {},
+  modules: {
+    ProjectDetails,
+  },
 });
